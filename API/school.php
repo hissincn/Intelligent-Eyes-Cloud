@@ -34,12 +34,19 @@ class school{
         return $this->con->where(array('ID'=>$id))->delete('school');
     }
 
-    function changeSchool($id,$name){
+    public function changeSchool($id,$name){
         $ins = array(
             'name'=>$name
             );
         return $this->con->where(array('ID'=>$id))->update('school',$ins);
     }
+
+    public function getSchool(){
+        $res = $this->con->field(array('ID','name'))->select('school');
+        //->order(array('sid'=>'desc','aa'=>'asc'))
+        return $res;
+    }
+    
 
 }
 
