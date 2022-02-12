@@ -15,3 +15,4 @@ function logout(){  //登出
 if (function_exists($_GET['do'])) {
     $_GET['do']();
 }
+

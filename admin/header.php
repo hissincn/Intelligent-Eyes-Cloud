@@ -4,14 +4,16 @@ require('../function.php');
 session_start();
 ?>
 <html>
-    <script src="./status/admin.js"></script>
-	<head>
-		
+    	<head>		
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="/var/uikit-3.10.1/css/uikit.min.css" />
+        <link rel="stylesheet" href="./status/main.css" />
         <script src="/var/uikit-3.10.1/js/uikit.min.js"></script>
         <script src="/var/uikit-3.10.1/js/uikit-icons.min.js"></script>
+        <script src="./status/admin.js"></script>
+        <script type="text/javascript" src="../var/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="../var/jquery.jeditable.min.js"></script>
         <style type="text/css">
             @media (min-width: 639px) {
                 .sidebar {

@@ -46,6 +46,19 @@ class classes{
         return $this->con->where(array('ID'=>$id))->update('class',$ins);
     }
 
+    function changeClassname($id,$class){
+        $ins = array(
+            'class'=>$class            
+            );
+        return $this->con->where(array('ID'=>$id))->update('class',$ins);
+    }
+
+    public function getClass(){
+        $res = $this->con->field(array('ID','class','grade','school'))->select('class');
+        //->order(array('sid'=>'desc','aa'=>'asc'))
+        return $res;
+    }
+
 }
 
 $classes=new classes();
