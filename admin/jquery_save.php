@@ -5,10 +5,7 @@ require '../API/student.php';
 require '../API/classes.php';
 require '../API/sight.php';
 
-$option= $_GET['option'];
-
-
-if($option=="changeSchoolname"){
+if($_GET['option']=="changeSchoolname"){
     $id = $_POST['id']; //获取前端提交的字段名 
     $name = $_POST['value']; //获取前端提交的字段对应的内容 
     $name = htmlspecialchars($name, ENT_QUOTES); //过滤处理内容 
@@ -25,7 +22,7 @@ if($option=="changeSchoolname"){
     }
 }
 
-if($option=="changeClassesname"){
+if($_GET['option']=="changeClassesname"){
     $id = $_POST['id']; //获取前端提交的字段名 
     $classname = $_POST['value']; //获取前端提交的字段对应的内容 
     $name = htmlspecialchars($classname, ENT_QUOTES); //过滤处理内容 
@@ -40,4 +37,8 @@ if($option=="changeClassesname"){
             echo "数据出错";
         }
     }
+}
+
+if($_POST['option']=="addSchool"){
+    $school->addSchool($_POST['schoolName']);
 }

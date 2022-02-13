@@ -31,7 +31,7 @@ class school{
     }
 
     public function delSchool($id){
-        return $this->con->where(array('ID'=>$id))->delete('school');
+        $this->con->where(array('ID'=>$id))->delete('school');
     }
 
     public function changeSchool($id,$name){

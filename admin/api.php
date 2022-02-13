@@ -1,5 +1,9 @@
 <?php
-
+require '../function.php';
+require '../API/school.php';
+require '../API/student.php';
+require '../API/classes.php';
+require '../API/sight.php';
 
 function logout(){  //登出
     session_start();
@@ -9,7 +13,6 @@ function logout(){  //登出
     Header("HTTP/1.1 303 See Other");
     Header("Location: index.php");
 }
-
 
 
 if (function_exists($_GET['do'])) {

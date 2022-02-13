@@ -1,6 +1,14 @@
 <?php
 require('header.php');
 require('../API/school.php');
+
+if ($_POST['need_delete_school'] != null) {
+    for ($i = 0; $i < count($_POST['need_delete_school']); $i++) {
+        $school->delSchool($_POST['need_delete_school'][$i]);
+    }
+}
+
+
 ?>
 <title><?php echo $websitename; ?>-学校管理</title>
 
@@ -27,30 +35,35 @@ require('../API/school.php');
                     </div>
                     <div class="uk-card-body">
                         <div class="uk-overflow-auto">
-                            <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
-                                <thead>
-                                    <tr>
-                                        <th class="uk-width-small">选择</th>
-                                        <th class="uk-width-small">ID</th>
-                                        <th class="uk-table-expand">学校名称</th>
+                            <form method="post" action="schoolMan.php">
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
+                                <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                                    <p uk-margin>
+                                        <button class="uk-button uk-button-primary" type="submit">删除选中</button>
+                                        <a id="js-modal-prompt" class="uk-button uk-button-default" href="#">添加学校</a>
+                                    </p>
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-small">选择</th>
+                                            <th class="uk-width-small">ID</th>
+                                            <th class="uk-table-expand">学校名称</th>
 
-                                    foreach ($school->getSchool() as $oneSchool) {
-                                        echo '<tr>
-										<td><input class="uk-checkbox" type="checkbox"></td>
-										<td>' . $oneSchool['ID'] . '</td>
-										<td class="edit" id="'.$oneSchool['ID'].'">' . $oneSchool['name'] . '</td>
-										</tr>';
-                                    }
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($school->getSchool() as $oneSchool) {
+                                            echo '<tr>
+                                            <td><input class="uk-checkbox" type="checkbox" name="need_delete_school[]" value="' . $oneSchool['ID'] . '"></td>
+                                            <td>' . $oneSchool['ID'] . '</td>
+                                            <td class="edit" id="' . $oneSchool['ID'] . '">' . $oneSchool['name'] . '</td>
+                                            </tr>';
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
 
-                                    ?>
-
-                                </tbody>
-                            </table>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -66,7 +79,7 @@ require('../API/school.php');
 <script type="text/javascript">
     $(function() {
         $('.edit').editable('./jquery_save.php?option=changeSchoolname', {
-            
+
             width: 200,
             height: 18,
             onblur: 'ignore',
@@ -78,10 +91,26 @@ require('../API/school.php');
             cancelcssclass: 'btn btn-danger',
             submitcssclass: 'btn btn-success',
             cssclass: 'custom-class',
-            
+
+        });
+    });
+    UIkit.util.on('#js-modal-prompt', 'click', function(e) {
+        e.preventDefault();
+        e.target.blur();
+        UIkit.modal.prompt('学校名称:', ).then(function(name) {
+            $.ajax({
+                url: 'jquery_save.php',
+                type: 'post',
+                data: {
+                    "option": "addSchool",
+                    "schoolName": name
+                },
+                dataType: 'text',
+                success: function() {
+                    location.replace(location.href);
+                }
+            });
+
         });
     });
 </script>
-
-
-
