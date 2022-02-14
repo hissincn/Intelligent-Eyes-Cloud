@@ -4,7 +4,9 @@ if ($_POST['need_delete_classes'] != null) {
     for ($i = 0; $i < count($_POST['need_delete_classes']); $i++) {
         $classes->delClass($_POST['need_delete_classes'][$i]);
     }
+    echo "<script language=JavaScript> location.replace(location.href);</script>";
 }
+
 ?>
 <title><?php echo $websitename; ?>-班级管理</title>
 
@@ -31,12 +33,28 @@ if ($_POST['need_delete_classes'] != null) {
                     </div>
                     <div class="uk-card-body">
                         <div class="uk-overflow-auto">
+
+
+                            <form class="uk-grid-small" uk-grid method="post">
+                                <div class="uk-width-1-4@s">
+                                    <input class="uk-input" type="text" placeholder="班级" name="classname">
+                                </div>
+                                <div class="uk-width-1-4@s">
+                                    <input class="uk-input" type="text" placeholder="年级" name="gradename">
+                                </div>
+                                <div class="uk-width-1-4@s">
+                                    <input class="uk-input" type="text" placeholder="学校代号(ID)" name="schoolid">
+                                </div>
+                                <div class="uk-width-1-4@s">
+                                    <button class="uk-button uk-button-primary" type="submit" name="addClass">添加班级</button>
+                                </div>
+                            </form>
+
                             <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                <div class="uk-margin-medium-top">
+                                    <button class="uk-button uk-button-primary" type="submit">删除选中</button>
+                                </div>
                                 <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
-                                    <p uk-margin>
-                                        <button class="uk-button uk-button-primary" type="submit">删除选中</button>
-                                        <a id="js-modal-dialog" class="uk-button uk-button-default" href="#">添加班级</a>
-                                    </p>
                                     <thead>
                                         <tr>
                                             <th class="uk-width-1-6">选择</th>
@@ -48,7 +66,6 @@ if ($_POST['need_delete_classes'] != null) {
                                     </thead>
                                     <tbody>
                                         <?php
-
                                         foreach ($classes->getClass() as $oneClass) {
                                             echo '<tr>
                                             <td><input class="uk-checkbox" type="checkbox" name="need_delete_classes[]" value="' . $oneClass['ID'] . '"></td>
@@ -58,12 +75,20 @@ if ($_POST['need_delete_classes'] != null) {
                                             <td class="editSchool" id="' . $oneClass['ID'] . '">' . $oneClass['school'] . '</td>
                                             </tr>';
                                         }
-
                                         ?>
-
                                     </tbody>
                                 </table>
                             </form>
+                            <?php
+
+                            if (isset($_POST["addClass"])) {                        
+                                $classes->addClass($_POST['classname'], $_POST['gradename'], $_POST['schoolid']);
+                                echo "<script language=JavaScript> location.replace(location.href);</script>";
+                            } 
+                            
+                            ?>
+
+
                         </div>
                     </div>
                 </div>
@@ -78,7 +103,7 @@ if ($_POST['need_delete_classes'] != null) {
 
 <script type="text/javascript">
     $(function() {
-        $('.editClass').editable('./jquery_save.php?option=fromClassChangeClass', {
+        $('.editClass').editable('./operation.php?option=fromClassChangeClass', {
 
             width: 100,
             height: 18,
@@ -95,7 +120,7 @@ if ($_POST['need_delete_classes'] != null) {
         });
     });
     $(function() {
-        $('.editGrade').editable('./jquery_save.php?option=fromClassChangeGrade', {
+        $('.editGrade').editable('./operation.php?option=fromClassChangeGrade', {
 
             width: 100,
             height: 18,
@@ -112,7 +137,7 @@ if ($_POST['need_delete_classes'] != null) {
         });
     });
     $(function() {
-        $('.editSchool').editable('./jquery_save.php?option=fromClassChangeSchool', {
+        $('.editSchool').editable('./operation.php?option=fromClassChangeSchool', {
 
             width: 100,
             height: 18,
@@ -127,33 +152,5 @@ if ($_POST['need_delete_classes'] != null) {
             cssclass: 'custom-class',
 
         });
-    });
-
-    UIkit.util.on('#js-modal-dialog', 'click', function (e) {
-           e.preventDefault();
-           e.target.blur();
-           UIkit.modal.dialog('<form method="post"> <fieldset class="uk-fieldset"><legend class="uk-legend">新增班级</legend>        <div class="uk-margin">        <div class="uk-inline">               <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: user"></span>                <input class="uk-input" type="text" placeholder="班级" name="changedUsername">            </div>        </div>        <div class="uk-margin">            <div class="uk-inline">                <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>                <input class="uk-input" type="text" placeholder="班级" name="changedPassword">            </div>        </div>        <div class="uk-margin">            <div class="uk-inline">                <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>                <input class="uk-input" type="text" placeholder="学校代号" name="changedPassword">            </div>        </div>        <div class="uk-margin">            <div class="uk-inline">                <button class="uk-button uk-button-primary" type="submit" name="changedUP">提交</button>            </div>        </div>    </fieldset></form>'); 
-    };
-    
-    UIkit.util.on('#js-modal-prompt', 'click', function(e) {
-        e.preventDefault();
-        e.target.blur();
-        UIkit.modal.prompt('学校名称:', ).then(function(name) {
-            $.ajax({
-                url: 'jquery_save.php',
-                type: 'post',
-                data: {
-                    "option": "addSchool",
-                    "schoolName": name
-                },
-                dataType: 'text',
-                success: function() {
-                    location.replace(location.href);
-                }
-            });
-
-        });
- 
     });
 </script>
-

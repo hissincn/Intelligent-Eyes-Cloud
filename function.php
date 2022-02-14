@@ -128,7 +128,7 @@ class sight{
         return $this->con->where(array('ID'=>$id))->delete('sight');
     }
 
-    function changeSight($id,$student,$left,$right,$date,$age){
+    public function changeSight($id,$student,$left,$right,$date,$age){
         $ins = array(
             'ID'=>$id,
             'student'=>$student,
@@ -164,11 +164,40 @@ class student{
         return $this->con->where(array('ID'=>$id))->delete('student');
     }
 
-    function changeStu($id,$name,$class,$birthday,$phone){
+    public function changeStu($id,$name,$class,$birthday,$phone){
         $ins = array(
             'name'=>$name,
             'class'=>$class,
             'birthday'=>$birthday,
+            'phone'=>$phone
+            );
+        return $this->con->where(array('ID'=>$id))->update('student',$ins);
+    }
+    public function getStu(){
+        $res = $this->con->field(array('ID','name','class','birthday','phone'))->select('student');
+        //->order(array('sid'=>'desc','aa'=>'asc'))
+        return $res;
+    }
+    public function changeStuName($id,$name){
+        $ins = array(
+            'name'=>$name,            
+            );
+        return $this->con->where(array('ID'=>$id))->update('student',$ins);
+    }
+    public function changeStuClass($id,$class){
+        $ins = array(            
+            'class'=>$class,           
+            );
+        return $this->con->where(array('ID'=>$id))->update('student',$ins);
+    }
+    public function changeStuBirthday($id,$birthday){
+        $ins = array(                     
+            'birthday'=>$birthday,           
+            );
+        return $this->con->where(array('ID'=>$id))->update('student',$ins);
+    }
+    public function changeStuPhone($id,$phone){
+        $ins = array(
             'phone'=>$phone
             );
         return $this->con->where(array('ID'=>$id))->update('student',$ins);
