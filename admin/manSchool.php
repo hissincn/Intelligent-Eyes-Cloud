@@ -1,6 +1,5 @@
 <?php
 require('header.php');
-require('../API/school.php');
 
 if ($_POST['need_delete_school'] != null) {
     for ($i = 0; $i < count($_POST['need_delete_school']); $i++) {
@@ -35,7 +34,7 @@ if ($_POST['need_delete_school'] != null) {
                     </div>
                     <div class="uk-card-body">
                         <div class="uk-overflow-auto">
-                            <form method="post" action="schoolMan.php">
+                            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 
                                 <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
                                     <p uk-margin>
@@ -54,7 +53,7 @@ if ($_POST['need_delete_school'] != null) {
                                         <?php
                                         foreach ($school->getSchool() as $oneSchool) {
                                             echo '<tr>
-                                            <td><input class="uk-checkbox" type="checkbox" name="need_delete_school[]" value="' . $oneSchool['ID'] . '"></td>
+                                            <td><input class="uk-checkbox" type="checkbox" name="need_delete_school[]" value="' . $oneSchool['ID'] .'"></td>
                                             <td>' . $oneSchool['ID'] . '</td>
                                             <td class="edit" id="' . $oneSchool['ID'] . '">' . $oneSchool['name'] . '</td>
                                             </tr>';
@@ -78,7 +77,7 @@ if ($_POST['need_delete_school'] != null) {
 
 <script type="text/javascript">
     $(function() {
-        $('.edit').editable('./jquery_save.php?option=changeSchoolname', {
+        $('.edit').editable('./operation.php?option=formSchoolChangeSchool', {
 
             width: 200,
             height: 18,
@@ -99,7 +98,7 @@ if ($_POST['need_delete_school'] != null) {
         e.target.blur();
         UIkit.modal.prompt('学校名称:', ).then(function(name) {
             $.ajax({
-                url: 'jquery_save.php',
+                url: 'operation.php',
                 type: 'post',
                 data: {
                     "option": "addSchool",

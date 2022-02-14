@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-require('../function.php');
+include('../function.php');
 session_start();
 ?>
 <html>
@@ -11,9 +11,9 @@ session_start();
         <link rel="stylesheet" href="./status/main.css" />
         <script src="/var/uikit-3.10.1/js/uikit.min.js"></script>
         <script src="/var/uikit-3.10.1/js/uikit-icons.min.js"></script>
-        <script src="./status/admin.js"></script>
-        <script type="text/javascript" src="../var/jquery-3.6.0.min.js"></script>
-        <script type="text/javascript" src="../var/jquery.jeditable.min.js"></script>
+        <script src="status/admin.js"></script>
+        <script type="text/javascript" src="/var/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="/var/jquery.jeditable.min.js"></script>
         <style type="text/css">
             @media (min-width: 639px) {
                 .sidebar {
@@ -50,11 +50,11 @@ session_start();
     <!-- phoneTypeSiderbar -->
     <div id="m-nav" uk-offcanvas="overlay: true">
         <div class="uk-offcanvas-bar">
-            <?php require('./siderbar.php');?>
+            <?php require('siderbar.php');?>
         </div>
     </div>
 
     <!-- pcTypeSiderbar -->
     <div class="uk-background-primary uk-light uk-visible@s sidebar">
-        <?php require('./siderbar.php');?>
+        <?php require('siderbar.php');?>
     </div>
