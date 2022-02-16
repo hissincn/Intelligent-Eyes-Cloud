@@ -2,7 +2,7 @@
 require('header.php');
 if ($_POST['need_delete_student'] != null) {
     for ($i = 0; $i < count($_POST['need_delete_student']); $i++) {
-        $stu->delStu($_POST['need_delete_student'][$i]);
+        $student->delStu($_POST['need_delete_student'][$i]);
     }
     echo "<script language=JavaScript> location.replace(location.href);</script>";
 }
@@ -68,7 +68,7 @@ if ($_POST['need_delete_student'] != null) {
                                     </thead>
                                     <tbody>
                                         <?php
-                                        foreach ($stu->getStu() as $oneStu) {
+                                        foreach ($student->getStu() as $oneStu) {
                                             echo '<tr>
                                             <td><input class="uk-checkbox" type="checkbox" name="need_delete_student[]" value="' . $oneStu['ID'] . '"></td>
                                             <td>' . $oneStu['ID'] . '</td>
@@ -85,7 +85,7 @@ if ($_POST['need_delete_student'] != null) {
                             <?php
 
                             if (isset($_POST["addStudent"])) {                        
-                                $stu->addStu($_POST['studentname'], $_POST['class'], $_POST['birthday'],$_POST['phone']);
+                                $student->addStu($_POST['studentname'], $_POST['class'], $_POST['birthday'],$_POST['phone']);
                                 echo "<script language=JavaScript> location.replace(location.href);</script>";
                             } 
                             

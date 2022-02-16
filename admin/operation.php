@@ -19,7 +19,7 @@ if($_POST['option']=="addSchool"){
     $school->addSchool($_POST['schoolName']);
 }
 
-
+//From School
 if($_GET['option']=="formSchoolChangeSchool"){
     $id = $_POST['id']; //获取前端提交的字段名 
     $name = $_POST['value']; //获取前端提交的字段对应的内容 
@@ -36,7 +36,7 @@ if($_GET['option']=="formSchoolChangeSchool"){
         }
     }
 }
-
+//From Classes
 if($_GET['option']=="fromClassChangeClass"){
     $id = $_POST['id']; //获取前端提交的字段名 
     $classname = $_POST['value']; //获取前端提交的字段对应的内容 
@@ -87,6 +87,8 @@ if($_GET['option']=="fromClassChangeSchool"){
         }
     }
 }
+
+//From Students
 if($_GET['option']=="fromStudentChangeName"){
     $id = $_POST['id']; //获取前端提交的字段名 
     $change = $_POST['value']; //获取前端提交的字段对应的内容 
@@ -95,7 +97,7 @@ if($_GET['option']=="fromStudentChangeName"){
         echo "不能为空";
     } else {
         //更新字段信息 
-        $res=$stu->changeStuName($id,$change);
+        $res=$student->changeStuName($id,$change);
         if ($res) {
             echo $change;
         } else {
@@ -111,7 +113,7 @@ if($_GET['option']=="fromStudentChangeClass"){
         echo "不能为空";
     } else {
         //更新字段信息 
-        $res=$stu->changeStuClass($id,$change);
+        $res=$student->changeStuClass($id,$change);
         if ($res) {
             echo $change;
         } else {
@@ -127,7 +129,7 @@ if($_GET['option']=="fromStudentChangeBirthday"){
         echo "不能为空";
     } else {
         //更新字段信息 
-        $res=$stu->changeStuBirthday($id,$change);
+        $res=$student->changeStuBirthday($id,$change);
         if ($res) {
             echo $change;
         } else {
@@ -143,7 +145,57 @@ if($_GET['option']=="fromStudentChangePhone"){
         echo "不能为空";
     } else {
         //更新字段信息 
-        $res=$stu->changeStuPhone($id,$change);
+        $res=$student->changeStuPhone($id,$change);
+        if ($res) {
+            echo $change;
+        } else {
+            echo "数据出错";
+        }
+    }
+}
+
+//From EXam Data 
+if($_GET['option']=="fromSightChangeLeft"){
+    $id = $_POST['id']; //获取前端提交的字段名 
+    $change = $_POST['value']; //获取前端提交的字段对应的内容 
+    $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
+    if (empty($change)) {
+        echo "不能为空";
+    } else {
+        //更新字段信息 
+        $res=$sight->changeLeft($id,$change);
+        if ($res) {
+            echo $change;
+        } else {
+            echo "数据出错";
+        }
+    }
+}
+if($_GET['option']=="fromSightChangeRight"){
+    $id = $_POST['id']; //获取前端提交的字段名 
+    $change = $_POST['value']; //获取前端提交的字段对应的内容 
+    $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
+    if (empty($change)) {
+        echo "不能为空";
+    } else {
+        //更新字段信息 
+        $res=$sight->changeRight($id,$change);
+        if ($res) {
+            echo $change;
+        } else {
+            echo "数据出错";
+        }
+    }
+}
+if($_GET['option']=="fromSightChangeDate"){
+    $id = $_POST['id']; //获取前端提交的字段名 
+    $change = $_POST['value']; //获取前端提交的字段对应的内容 
+    $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
+    if (empty($change)) {
+        echo "不能为空";
+    } else {
+        //更新字段信息 
+        $res=$sight->changeDate($id,$change);
         if ($res) {
             echo $change;
         } else {

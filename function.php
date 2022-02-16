@@ -69,9 +69,6 @@ class classes{
 
 }
 
-$classes=new classes();
-
-
 class school{
 
     function __construct(){
@@ -105,8 +102,6 @@ class school{
 
 }
 
-$school=new school();
-
 class sight{
 
     function __construct(){
@@ -139,10 +134,26 @@ class sight{
         );
         return $this->con->where(array('ID'=>$id))->update('sight',$ins);
     }
+    public function changeLeft($id,$left){
+        $ins = array(
+            'left'=>$left,            
+        );
+        return $this->con->where(array('ID'=>$id))->update('sight',$ins);
+    }
+    public function changeRight($id,$right){
+        $ins = array(            
+            'right'=>$right,             
+        );
+        return $this->con->where(array('ID'=>$id))->update('sight',$ins);
+    }
+    public function changeDate($id,$date){
+        $ins = array(            
+            'date'=>$date,          
+        );
+        return $this->con->where(array('ID'=>$id))->update('sight',$ins);
+    }
 
 }
-
-$stu=new sight();
 
 class student{
 
@@ -205,4 +216,6 @@ class student{
 
 }
 
-$stu=new student();
+$student=new student();
+$stu=new sight();
+$school=new school();
