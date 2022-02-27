@@ -121,6 +121,19 @@ if($_GET['option']=="fromStudentChangeClass"){
         }
     }
 }
+if($_GET['option']=="fromStudentChangeSex"){
+    $id = $_POST['id']; //获取前端提交的字段名 
+    $change = $_POST['value']; //获取前端提交的字段对应的内容 
+    $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
+
+    $res=$student->changeStuSex($id,$change);
+    if ($res) {
+        echo $change;
+    } else {
+        echo "数据出错";
+    }
+    
+}
 if($_GET['option']=="fromStudentChangeBirthday"){
     $id = $_POST['id']; //获取前端提交的字段名 
     $change = $_POST['value']; //获取前端提交的字段对应的内容 
@@ -155,51 +168,147 @@ if($_GET['option']=="fromStudentChangePhone"){
 }
 
 //From EXam Data 
-if($_GET['option']=="fromSightChangeLeft"){
+
+if($_GET['option']=="fromSightChange_naked_L"){
     $id = $_POST['id']; //获取前端提交的字段名 
     $change = $_POST['value']; //获取前端提交的字段对应的内容 
     $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
-    if (empty($change)) {
-        echo "不能为空";
-    } else {
+       //更新字段信息 
+       $res=$sight->change_naked_L($id,$change);
+       if ($res) {
+           echo $change;
+       } else {
+           echo "数据出错";
+       }
+}
+if($_GET['option']=="fromSightChange_naked_R"){
+    $id = $_POST['id']; //获取前端提交的字段名 
+    $change = $_POST['value']; //获取前端提交的字段对应的内容 
+    $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
+       //更新字段信息 
+       $res=$sight->change_naked_R($id,$change);
+       if ($res) {
+           echo $change;
+       } else {
+           echo "数据出错";
+       }
+}
+
+if($_GET['option']=="fromSightChange_corrected_L"){
+    $id = $_POST['id']; //获取前端提交的字段名 
+    $change = $_POST['value']; //获取前端提交的字段对应的内容 
+    $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
         //更新字段信息 
-        $res=$sight->changeLeft($id,$change);
+        $res=$sight->change_corrected_L($id,$change);
         if ($res) {
             echo $change;
         } else {
             echo "数据出错";
         }
-    }
 }
-if($_GET['option']=="fromSightChangeRight"){
+
+if($_GET['option']=="fromSightChange_corrected_R"){
     $id = $_POST['id']; //获取前端提交的字段名 
     $change = $_POST['value']; //获取前端提交的字段对应的内容 
     $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
-    if (empty($change)) {
-        echo "不能为空";
-    } else {
         //更新字段信息 
-        $res=$sight->changeRight($id,$change);
+        $res=$sight->change_corrected_R($id,$change);
         if ($res) {
             echo $change;
         } else {
             echo "数据出错";
         }
-    }
 }
+
+if($_GET['option']=="fromSightChange_DS_L"){
+    $id = $_POST['id']; //获取前端提交的字段名 
+    $change = $_POST['value']; //获取前端提交的字段对应的内容 
+    $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
+       //更新字段信息 
+       $res=$sight->change_DS_L($id,$change);
+       if ($res) {
+           echo $change;
+       } else {
+           echo "数据出错";
+       }
+}
+
+if($_GET['option']=="fromSightChange_DS_R"){
+    $id = $_POST['id']; //获取前端提交的字段名 
+    $change = $_POST['value']; //获取前端提交的字段对应的内容 
+    $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
+       //更新字段信息 
+       $res=$sight->change_DS_R($id,$change);
+       if ($res) {
+           echo $change;
+       } else {
+           echo "数据出错";
+       }
+}
+
+if($_GET['option']=="fromSightChange_DC_L"){
+    $id = $_POST['id']; //获取前端提交的字段名 
+    $change = $_POST['value']; //获取前端提交的字段对应的内容 
+    $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
+       //更新字段信息 
+       $res=$sight->change_DC_L($id,$change);
+       if ($res) {
+           echo $change;
+       } else {
+           echo "数据出错";
+       }
+}
+
+if($_GET['option']=="fromSightChange_DC_R"){
+    $id = $_POST['id']; //获取前端提交的字段名 
+    $change = $_POST['value']; //获取前端提交的字段对应的内容 
+    $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
+        //更新字段信息 
+        $res=$sight->change_DC_R($id,$change);
+        if ($res) {
+            echo $change;
+        } else {
+            echo "数据出错";
+        }
+}
+
+if($_GET['option']=="fromSightChange_Axis_L"){
+    $id = $_POST['id']; //获取前端提交的字段名 
+    $change = $_POST['value']; //获取前端提交的字段对应的内容 
+    $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
+       //更新字段信息 
+       $res=$sight->change_Axis_L($id,$change);
+       if ($res) {
+           echo $change;
+       } else {
+           echo "数据出错";
+       }
+}
+
+if($_GET['option']=="fromSightChange_Axis_R"){
+    $id = $_POST['id']; //获取前端提交的字段名 
+    $change = $_POST['value']; //获取前端提交的字段对应的内容 
+    $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
+
+    //更新字段信息 
+    $res=$sight->change_Axis_R($id,$change);
+    if ($res) {
+        echo $change;
+    } else {
+        echo "数据出错";
+    }
+    
+}
+
 if($_GET['option']=="fromSightChangeDate"){
     $id = $_POST['id']; //获取前端提交的字段名 
     $change = $_POST['value']; //获取前端提交的字段对应的内容 
     $change = htmlspecialchars($change, ENT_QUOTES); //过滤处理内容 
-    if (empty($change)) {
-        echo "不能为空";
-    } else {
         //更新字段信息 
-        $res=$sight->changeDate($id,$change);
+        $res=$sight->change_date($id,$change);
         if ($res) {
             echo $change;
         } else {
             echo "数据出错";
         }
-    }
 }

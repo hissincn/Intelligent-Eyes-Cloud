@@ -41,6 +41,9 @@ if ($_POST['need_delete_student'] != null) {
                                     <input class="uk-input" type="text" placeholder="班级" name="class">
                                 </div>
                                 <div class="uk-width-1-5@s">
+                                    <input class="uk-input" type="text" placeholder="性别" name="sex">
+                                </div>
+                                <div class="uk-width-1-5@s">
                                     <input class="uk-input" type="text" placeholder="出生日期" name="birthday">
                                 </div>
                                 <div class="uk-width-1-5@s">
@@ -62,6 +65,7 @@ if ($_POST['need_delete_student'] != null) {
                                             <th class="uk-table-expand">ID</th>
                                             <th class="uk-table-expand">姓名</th>
                                             <th class="uk-table-expand">班级</th>
+                                            <th class="uk-table-expand">性别</th>
                                             <th class="uk-table-expand">出生日期</th>
                                             <th class="uk-table-expand">联系方式</th>
                                         </tr>
@@ -74,6 +78,7 @@ if ($_POST['need_delete_student'] != null) {
                                             <td>' . $oneStu['ID'] . '</td>
                                             <td class="editName" id="' . $oneStu['ID'] . '">' . $oneStu['name'] . '</td>
                                             <td class="editClass" id="' . $oneStu['ID'] . '">' . $oneStu['class'] . '</td>
+                                            <td class="editSex" id="' . $oneStu['ID'] . '">' . $oneStu['sex'] . '</td>
                                             <td class="editBirthday" id="' . $oneStu['ID'] . '">' . $oneStu['birthday'] . '</td>
                                             <td class="editPhone" id="' . $oneStu['ID'] . '">' . $oneStu['phone'] . '</td>
                                             </tr>';
@@ -85,7 +90,7 @@ if ($_POST['need_delete_student'] != null) {
                             <?php
 
                             if (isset($_POST["addStudent"])) {                        
-                                $student->addStu($_POST['studentname'], $_POST['class'], $_POST['birthday'],$_POST['phone']);
+                                $student->addStu($_POST['studentname'], $_POST['class'], $_POST['sex'],$_POST['birthday'],$_POST['phone']);
                                 echo "<script language=JavaScript> location.replace(location.href);</script>";
                             } 
                             
@@ -123,6 +128,23 @@ if ($_POST['need_delete_student'] != null) {
     });
     $(function() {
         $('.editClass').editable('./operation.php?option=fromStudentChangeClass', {
+
+            width: 100,
+            height: 18,
+            onblur: 'ignore',
+            cancel: '取消',
+            submit: '确定',
+            tooltip: '单击可以编辑...',
+            indicator: "&lt;img src='../var/spinner.svg' /&gt;",
+            cssclass: 'custom-class',
+            cancelcssclass: 'btn btn-danger',
+            submitcssclass: 'btn btn-success',
+            cssclass: 'custom-class',
+
+        });
+    });
+    $(function() {
+        $('.editSex').editable('./operation.php?option=fromStudentChangeSex', {
 
             width: 100,
             height: 18,

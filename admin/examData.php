@@ -1,7 +1,7 @@
 <?php require('header.php');
-if ($_POST['need_delete_classes'] != null) {
-    for ($i = 0; $i < count($_POST['need_delete_classes']); $i++) {
-        $classes->delClass($_POST['need_delete_classes'][$i]);
+if ($_POST['need_delete_sight'] != null) {
+    for ($i = 0; $i < count($_POST['need_delete_sight']); $i++) {
+        $sight->delSight($_POST['need_delete_sight'][$i]);
     }
     echo "<script language=JavaScript> location.replace(location.href);</script>";
 }
@@ -38,22 +38,41 @@ if ($_POST['need_delete_classes'] != null) {
                                 <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
                                     <thead>
                                         <tr>
-                                            <th class="uk-width-1-6">选择</th>
-                                            <th class="uk-width-1-6">ID</th>
-                                            <th class="uk-table-expand">班级名称</th>
-                                            <th class="uk-table-expand">年级</th>
-                                            <th class="uk-table-expand">学校代号(ID)</th>
+                                            <th class="uk-width-3-6">选择</th>
+                                            <th class="uk-width-3-6">ID</th>
+                                            <th class="uk-width-3-6">学生ID</th>
+                                            <th class="uk-table-expand">裸眼左（标准对数）</th>
+                                            <th class="uk-table-expand">裸眼右（标准对数）</th>
+                                            <th class="uk-table-expand">矫正左（小数）</th>
+                                            <th class="uk-table-expand">矫正右（小数）</th>
+                                            <th class="uk-table-expand">球镜左</th>
+                                            <th class="uk-table-expand">球镜右</th>
+                                            <th class="uk-table-expand">柱镜左</th>
+                                            <th class="uk-table-expand">柱镜右</th>
+                                            <th class="uk-table-expand">轴位左</th>
+                                            <th class="uk-table-expand">轴位右</th>
+                                            <th class="uk-table-expand">测试时间</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        foreach ($classes->getClass() as $oneClass) {
+                                        foreach ($sight->getSight() as $oneSight) {
                                             echo '<tr>
-                                            <td><input class="uk-checkbox" type="checkbox" name="need_delete_classes[]" value="' . $oneClass['ID'] . '"></td>
-                                            <td>' . $oneClass['ID'] . '</td>
-                                            <td class="editClass" id="' . $oneClass['ID'] . '">' . $oneClass['class'] . '</td>
-                                            <td class="editGrade" id="' . $oneClass['ID'] . '">' . $oneClass['grade'] . '</td>
-                                            <td class="editSchool" id="' . $oneClass['ID'] . '">' . $oneClass['school'] . '</td>
+                                            <td><input class="uk-checkbox" type="checkbox" name="need_delete_sight[]" value="' . $oneSight['ID'] . '"></td>
+                                            <td>' . $oneSight['ID'] . '</td>
+                                            <td class="edit_student" id="' . $oneSight['ID'] . '">' . $oneSight['student'] . '</td>
+                                            <td class="edit_naked_L" id="' . $oneSight['ID'] . '">' . $oneSight['naked_L'] . '</td>
+                                            <td class="edit_naked_R" id="' . $oneSight['ID'] . '">' . $oneSight['naked_R'] . '</td>
+                                            <td class="edit_corrected_L" id="' . $oneSight['ID'] . '">' . $oneSight['corrected_L'] . '</td>
+                                            <td class="edit_corrected_R" id="' . $oneSight['ID'] . '">' . $oneSight['corrected_R'] . '</td>
+                                            <td class="edit_DS_L" id="' . $oneSight['ID'] . '">' . $oneSight['DS_L'] . '</td>
+                                            <td class="edit_DS_R" id="' . $oneSight['ID'] . '">' . $oneSight['DS_R'] . '</td>
+                                            <td class="edit_DC_L" id="' . $oneSight['ID'] . '">' . $oneSight['DC_L'] . '</td>
+                                            <td class="edit_DC_R" id="' . $oneSight['ID'] . '">' . $oneSight['DC_R'] . '</td>
+                                            <td class="edit_Axis_L" id="' . $oneSight['ID'] . '">' . $oneSight['Axis_L'] . '</td>
+                                            <td class="edit_Axis_R" id="' . $oneSight['ID'] . '">' . $oneSight['Axis_R'] . '</td>
+                                            <td class="edit_date" id="' . $oneSight['ID'] . '">' . $oneSight['date'] . '</td>
                                             </tr>';
                                         }
                                         ?>
@@ -75,14 +94,15 @@ if ($_POST['need_delete_classes'] != null) {
 
 <script type="text/javascript">
     $(function() {
-        $('.editClass').editable('./operation.php?option=fromClassChangeClass', {
+        $('.edit_naked_L').editable('./operation.php?option=fromSightChangenakedL', {
 
             width: 100,
             height: 18,
             onblur: 'ignore',
+            placeholder:'添加数据',
             cancel: '取消',
             submit: '确定',
-            tooltip: '单击可以编辑...',
+            tooltip: '单击以编辑',
             indicator: "&lt;img src='../var/spinner.svg' /&gt;",
             cssclass: 'custom-class',
             cancelcssclass: 'btn btn-danger',
@@ -92,14 +112,15 @@ if ($_POST['need_delete_classes'] != null) {
         });
     });
     $(function() {
-        $('.editGrade').editable('./operation.php?option=fromClassChangeGrade', {
+        $('.edit_naked_R').editable('./operation.php?option=fromSightChange_naked_R', {
 
             width: 100,
             height: 18,
             onblur: 'ignore',
+            placeholder:'添加数据',
             cancel: '取消',
             submit: '确定',
-            tooltip: '单击可以编辑...',
+            tooltip: '单击以编辑',
             indicator: "&lt;img src='../var/spinner.svg' /&gt;",
             cssclass: 'custom-class',
             cancelcssclass: 'btn btn-danger',
@@ -109,14 +130,159 @@ if ($_POST['need_delete_classes'] != null) {
         });
     });
     $(function() {
-        $('.editSchool').editable('./operation.php?option=fromClassChangeSchool', {
+        $('.edit_corrected_L').editable('./operation.php?option=fromSightChange_corrected_L', {
 
             width: 100,
             height: 18,
             onblur: 'ignore',
+            placeholder:'添加数据',
             cancel: '取消',
             submit: '确定',
-            tooltip: '单击可以编辑...',
+            tooltip: '单击以编辑',
+            indicator: "&lt;img src='../var/spinner.svg' /&gt;",
+            cssclass: 'custom-class',
+            cancelcssclass: 'btn btn-danger',
+            submitcssclass: 'btn btn-success',
+            cssclass: 'custom-class',
+
+        });
+    });
+    $(function() {
+        $('.edit_corrected_R').editable('./operation.php?option=fromSightChange_corrected_R', {
+
+            width: 100,
+            height: 18,
+            onblur: 'ignore',
+            placeholder:'添加数据',
+            cancel: '取消',
+            submit: '确定',
+            tooltip: '单击以编辑',
+            indicator: "&lt;img src='../var/spinner.svg' /&gt;",
+            cssclass: 'custom-class',
+            cancelcssclass: 'btn btn-danger',
+            submitcssclass: 'btn btn-success',
+            cssclass: 'custom-class',
+
+        });
+    });
+    $(function() {
+        $('.edit_DS_L').editable('./operation.php?option=fromSightChange_DS_L', {
+
+            width: 100,
+            height: 18,
+            onblur: 'ignore',
+            placeholder:'添加数据',
+            cancel: '取消',
+            submit: '确定',
+            tooltip: '单击以编辑',
+            indicator: "&lt;img src='../var/spinner.svg' /&gt;",
+            cssclass: 'custom-class',
+            cancelcssclass: 'btn btn-danger',
+            submitcssclass: 'btn btn-success',
+            cssclass: 'custom-class',
+
+        });
+    });
+    $(function() {
+        $('.edit_DS_R').editable('./operation.php?option=fromSightChange_DS_R', {
+
+            width: 100,
+            height: 18,
+            onblur: 'ignore',
+            placeholder:'添加数据',
+            cancel: '取消',
+            submit: '确定',
+            tooltip: '单击以编辑',
+            indicator: "&lt;img src='../var/spinner.svg' /&gt;",
+            cssclass: 'custom-class',
+            cancelcssclass: 'btn btn-danger',
+            submitcssclass: 'btn btn-success',
+            cssclass: 'custom-class',
+
+        });
+    });
+    $(function() {
+        $('.edit_DC_L').editable('./operation.php?option=fromSightChange_DC_L', {
+
+            width: 100,
+            height: 18,
+            onblur: 'ignore',
+            placeholder:'添加数据',
+            cancel: '取消',
+            submit: '确定',
+            tooltip: '单击以编辑',
+            indicator: "&lt;img src='../var/spinner.svg' /&gt;",
+            cssclass: 'custom-class',
+            cancelcssclass: 'btn btn-danger',
+            submitcssclass: 'btn btn-success',
+            cssclass: 'custom-class',
+
+        });
+    });
+    $(function() {
+        $('.edit_DC_R').editable('./operation.php?option=fromSightChange_DC_R', {
+
+            width: 100,
+            height: 18,
+            onblur: 'ignore',
+            placeholder:'添加数据',
+            cancel: '取消',
+            submit: '确定',
+            tooltip: '单击以编辑',
+            indicator: "&lt;img src='../var/spinner.svg' /&gt;",
+            cssclass: 'custom-class',
+            cancelcssclass: 'btn btn-danger',
+            submitcssclass: 'btn btn-success',
+            cssclass: 'custom-class',
+
+        });
+    });
+    $(function() {
+        $('.edit_Axis_L').editable('./operation.php?option=fromSightChange_Axis_L', {
+
+            width: 100,
+            height: 18,
+            onblur: 'ignore',
+            placeholder:'添加数据',
+            cancel: '取消',
+            submit: '确定',
+            tooltip: '单击以编辑',
+            indicator: "&lt;img src='../var/spinner.svg' /&gt;",
+            cssclass: 'custom-class',
+            cancelcssclass: 'btn btn-danger',
+            submitcssclass: 'btn btn-success',
+            cssclass: 'custom-class',
+
+        });
+    });
+    $(function() {
+        $('.edit_Axis_R').editable('./operation.php?option=fromSightChange_Axis_R', {
+
+            width: 100,
+            height: 18,
+            onblur: 'ignore',
+            placeholder:'添加数据',
+            cancel: '取消',
+            submit: '确定',
+            tooltip: '单击以编辑',
+            indicator: "&lt;img src='../var/spinner.svg' /&gt;",
+            cssclass: 'custom-class',
+            cancelcssclass: 'btn btn-danger',
+            submitcssclass: 'btn btn-success',
+            cssclass: 'custom-class',
+
+        });
+    });
+    $(function() {
+        $('.edit_date').editable('./operation.php?option=fromSightChangeDate', {
+
+            width: 100,
+            height: 18,
+            onblur: 'ignore',
+            placeholder:'添加数据',
+            cancel: '取消',
+            submit: '确定',
+            tooltip: '单击以编辑',
             indicator: "&lt;img src='../var/spinner.svg' /&gt;",
             cssclass: 'custom-class',
             cancelcssclass: 'btn btn-danger',
